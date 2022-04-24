@@ -1,0 +1,5 @@
+/.vs
+/LineMessageAPI/bin
+/LineMessageAPI/obj
+/LineMessageAPI/*.user
+/LineMessageAPI/Properties/PublishProfiles
