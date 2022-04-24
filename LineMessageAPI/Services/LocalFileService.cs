@@ -15,7 +15,8 @@ namespace LineMessageAPI.Services
             string FilePath = "Log";
             string FileName = DateTime.Today.ToString("yyyyMMdd");
             string CompletePath = Path.Combine(RootFileName, FilePath);
-            string WriteMessage = $"{_requestIDService.RequestID}|{_requestIDService.ClientIP}|{level.ToString()}|{Message}";
+            DateTime Nowtime = DateTime.Now;
+            string WriteMessage = $"{Nowtime.ToString("yyyy-MM-dd HH:mm:ss")}|{_requestIDService.RequestID}|{_requestIDService.ClientIP}|{level.ToString()}|{Message}";
             if (CheckFile(CompletePath))
             {
                 try
