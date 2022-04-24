@@ -22,7 +22,7 @@ namespace LineMessageAPI.Controllers
         {
             _lineMessageService = lineMessageService;
             _requestIDService = requestIDService;
-            _LocalLog = logservices.SingleOrDefault(x => x.TypeName == LogEnum.LocalLog);
+            _LocalLog = logservices.First(x => x.TypeName == LogEnum.LocalLog);
         }
         [HttpPost]
         [TypeFilter(typeof(LineMessageHeaderValidation))]

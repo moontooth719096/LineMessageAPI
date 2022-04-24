@@ -9,6 +9,8 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
+VOLUME ["/LocalFile"]
+
 #FROM mcr.microsoft.com/dotnet/aspnet:6.0.3-focal-arm64v8 AS build
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 #FROM mcr.microsoft.com/dotnet/nightly/sdk:6.0.3-focal-arm64v8 AS build

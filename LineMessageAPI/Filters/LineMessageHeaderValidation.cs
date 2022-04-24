@@ -26,7 +26,7 @@ namespace LineMessageAPI.Filters
             string _functionname = "OnActionExecutionAsync";
             try
             {
-                if (!context.HttpContext.Response.Headers.Any(x => x.Key.ToUpper() == "X-Line-Signature".ToUpper()))
+                if (!context.HttpContext.Request.Headers.Any(x => x.Key.ToUpper() == "X-Line-Signature".ToUpper()))
                 {
                     await _LocalLog.WriteAsync(_className, _functionname, _requestIDService, LogLevelEnum.Error, "此請求沒有X-Line-Signature");
                     await HandleExceptionAsync(context.HttpContext, JsonSerializer.Serialize(new RequestModelBase() { RequestID = _requestIDService.RequestID, Details = "此請求沒有X-Line-Signature" }));
@@ -34,8 +34,8 @@ namespace LineMessageAPI.Filters
                     
                 else
                 {
-                    string LineRequestID = context.HttpContext.Response.Headers["x-line-request-id"].ToString();
-                    await _LocalLog.WriteAsync(_className, _functionname, _requestIDService, LogLevelEnum.Error,$"x-line-request-id：{LineRequestID}");
+                    string LineRequestID = context.HttpContext.Request.Headers.FirstOrDefault(x => x.Key.ToUpper() == "X-Line-Signature".ToUpper()).Value;
+                    await _LocalLog.WriteAsync(_className, _functionname, _requestIDService, LogLevelEnum.Info,$"x-line-request-id：{LineRequestID}");
                     await next();
                 }
             }

@@ -28,4 +28,10 @@
     <None Include="Properties\PublishProfiles\registry.hub.docker.com_moontooth719096.pubxml.user" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="LocalFile\.gitkeep">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
