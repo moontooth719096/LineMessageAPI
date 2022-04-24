@@ -26,15 +26,15 @@ namespace LineMessageAPI.Controllers
         }
         [HttpPost]
         [TypeFilter(typeof(LineMessageHeaderValidation))]
-        public async Task<IActionResult> Index([FromBody] LineMessagePost data)//LineMessagePost data
+        public async Task<IActionResult> Index()//LineMessagePost data
         {
             string _functionname = "Index";
 
-            //var postData = Request.HttpContext.Request.ReadFromJsonAsync<LineMessagePost>().Result; 
+            LineMessagePost postData =await Request.HttpContext.Request.ReadFromJsonAsync<LineMessagePost>(); 
             //await _LocalLog.WriteAsync(_className, _functionname, _requestIDService, LogLevelEnum.Info, JObject.FromObject(postData).ToString());
             
             
-            await _lineMessageService.SaveData(data, _requestIDService);
+            await _lineMessageService.SaveData(postData, _requestIDService);
             //JObject q  = new JObject();   
             return Ok("aa");
         }
