@@ -5,6 +5,6 @@ namespace LineMessageAPI.Interfaces
 {
     public interface ILineMessageService
     {
-        Task SaveData(LineMessagePost postdata, RequestIDService requestIDService);
+        Task<string> SaveData(LineMessagePost? postdata, RequestIDService requestIDService);
     }
 }

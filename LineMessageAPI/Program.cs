@@ -1,10 +1,11 @@
 using LineMessageAPI.Interfaces;
 using LineMessageAPI.Middlewares;
+using LineMessageAPI.Models.LineMessage;
 using LineMessageAPI.Services;
 using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
-
+ConfigurationManager configuration = builder.Configuration;
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -16,10 +17,24 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton(p =>
+{
+    var config = new LineMessageOption();
+    var section = configuration.GetSection("LineMessageAPI");
+    section.Bind(config);
+    return config;
+});
+
+
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
 
 builder.Services.AddScoped<RequestIDService>();
 builder.Services.AddSingleton<ILogService, LocalFileService>();
+builder.Services.AddSingleton<APIHelper>();
+
+
 builder.Services.AddSingleton<ILineMessageService, LineMessageService>();
 
 var app = builder.Build();

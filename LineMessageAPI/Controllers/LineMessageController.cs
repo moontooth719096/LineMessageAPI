@@ -3,6 +3,7 @@ using LineMessageAPI.Filters;
 using LineMessageAPI.Interfaces;
 using LineMessageAPI.Models.Enums;
 using LineMessageAPI.Models.PostModels;
+using LineMessageAPI.Models.RequestModels;
 using LineMessageAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -30,13 +31,14 @@ namespace LineMessageAPI.Controllers
         {
             string _functionname = "Index";
 
-            LineMessagePost postData =await Request.HttpContext.Request.ReadFromJsonAsync<LineMessagePost>(); 
+            LineMessagePost? postData =await Request.HttpContext.Request.ReadFromJsonAsync<LineMessagePost>(); 
             //await _LocalLog.WriteAsync(_className, _functionname, _requestIDService, LogLevelEnum.Info, JObject.FromObject(postData).ToString());
             
             
-            await _lineMessageService.SaveData(postData, _requestIDService);
-            //JObject q  = new JObject();   
-            return Ok("aa");
+           string data =  await _lineMessageService.SaveData(postData, _requestIDService);
+            //JObject q  = new JObject();
+            RequestModelBase aa = new RequestModelBase();
+            return StatusCode((int)aa.Statuscode, aa);
         }
     }
 }

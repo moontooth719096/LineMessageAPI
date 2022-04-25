@@ -1,7 +1,5 @@
 ﻿using LineMessageAPI.Enums;
-using LineMessageAPI.Interfaces;
 using LineMessageAPI.Models.Enums;
-using System.Text;
 
 namespace LineMessageAPI.Services
 {
@@ -10,7 +8,7 @@ namespace LineMessageAPI.Services
         public LogEnum TypeName => LogEnum.LocalLog;
         private string RootFileName = "LocalFile";
 
-        public async Task<string> WriteAsync(string ClassName, string FunctionName, RequestIDService _requestIDService, LogLevelEnum level, string Message)
+        public async Task<string> WriteAsync(string? ClassName, string FunctionName, RequestIDService _requestIDService, LogLevelEnum level, string Message)
         {
             string FilePath = "Log";
             string FileName = DateTime.Today.ToString("yyyyMMdd");
